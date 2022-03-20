@@ -15,9 +15,9 @@ router.post("/createBlog", blogController.createBlog)
 
 router.post("/login",authorController.login)
 
-router.get("/getBlogs",blogController.getBlogs)
+router.get("/getBlogs",middleWare.authenticate,middleWare.authorise,blogController.getBlogs)
 
-router.put("/updateBlogs/:blogId",middleWare.authorise,blogController.updateblogs)
+router.put("/updateBlogs/:blogId",middleWare.authenticate,middleWare.authorise,blogController.updateblogs)
 
 router.delete("/deleteById/:blogId",middleWare.authenticate,middleWare.authorise,blogController.deleteById)
 

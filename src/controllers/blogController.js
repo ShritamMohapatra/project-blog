@@ -72,10 +72,10 @@ const deleteById = async function(req,res){
 const deleteByParams = async function(req,res){
     try{
         let filters = req.query
-    let isExists = await blogModel.find(filters)
-    if(isExists.isDeleted != true){
-        let deleteBlog = await blogModel.findByIdAndUpdate(filters,{$set:{isDeleted:true}})
-        return res.status(200).send(deleteBlog)
+    let isExists = await blogModel.findOne(filters)
+    if(isExists.isDeleted !== true){
+        let deleteBlog = await blogModel.findByIdAndUpdate(filters,{$set:{isDeleted:true}},{new:true})
+        return res.status(200).send({status:true,msg:"Successfully deleted"})
     }
     else{
         return res.status(400).send({status:false,msg:"already deleted"})

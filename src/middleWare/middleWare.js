@@ -26,7 +26,7 @@ const authorise = function(req,res,next){
     let decodedToken = jwt.verify(token,"roomNo-15")
     let toBeUpdatedAuthorId = req.params.authorId;
     let loggedInAuthorId = decodedToken.authorId;
-    if(loggedInAuthorId != toBeUpdatedAuthorId){
+    if(loggedInAuthorId !== toBeUpdatedAuthorId){
       return res.status(400).send({status:false,msg:"You are not authorised to do this task"});
     }
     else{
@@ -34,8 +34,8 @@ const authorise = function(req,res,next){
     }
   }
   catch(err){
-  }
   res.status(500).send({status:false,msg:"Server error",error:err.message})
+  }
 }
 
     module.exports.authenticate = authenticate
